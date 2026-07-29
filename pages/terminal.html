@@ -1,80 +1,105 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Terminal</title>
-  <style>
-    body{
-      margin:0;
-      background:#050505;
-      color:#00ff88;
-      font-family:'Courier New', monospace;
-      padding:40px;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LOVE.EXE Terminal</title>
 
-    .terminal{
-      max-width:800px;
-      margin:auto;
-    }
+    <style>
+        body{
+            margin:0;
+            background:#050505;
+            color:#00ff88;
+            font-family:'Courier New', monospace;
+            padding:40px;
+        }
 
-    .line{
-      margin:12px 0;
-      white-space:pre-wrap;
-    }
+        .terminal{
+            max-width:800px;
+            margin:auto;
+        }
 
-    .prompt{
-      color:#00fff7;
-    }
+        .line{
+            margin:12px 0;
+            white-space:pre-wrap;
+        }
 
-    #input{
-      background:transparent;
-      border:none;
-      outline:none;
-      color:#00ff88;
-      font-family:'Courier New', monospace;
-      font-size:18px;
-      width:80%;
-    }
-  </style>
+        .prompt{
+            color:#00fff7;
+        }
+
+        .input-line{
+            display:flex;
+            align-items:center;
+            margin-top:20px;
+        }
+
+        #input{
+            background:transparent;
+            border:none;
+            outline:none;
+            color:#00ff88;
+            font-family:'Courier New', monospace;
+            font-size:18px;
+            width:100%;
+            margin-left:8px;
+        }
+    </style>
 </head>
+
 <body>
 
 <div class="terminal">
 
-  <div class="line"><span class="prompt">$</span> boot</div>
-  <div class="line">Memory Engine v1.0</div>
-  <div class="line">Connection Established.</div>
-  <div class="line">Welcome, Developer.</div>
-  <div class="line">Type <span class="prompt">help</span> to continue.</div>
+    <div class="line"><span class="prompt">$</span> boot</div>
+    <div class="line">Memory Engine v1.0</div>
+    <div class="line">Connection Established.</div>
+    <div class="line">Welcome, Developer.</div>
+    <div class="line">Type <span class="prompt">help</span> to continue.</div>
 
-  <div class="line">
-    <span class="prompt">$</span>
-    <input id="input" autocomplete="off" autofocus>
-  </div>
+    <div id="output"></div>
 
-  <div id="output"></div>
+    <div class="input-line">
+        <span class="prompt">$</span>
+        <input type="text" id="input" autocomplete="off" autofocus>
+    </div>
 
 </div>
+
+<audio id="bgMusic" loop>
+    <source src="../assets/music/our-song.mp3" type="audio/mpeg">
+</audio>
 
 <script>
 const input = document.getElementById('input');
 const output = document.getElementById('output');
 
+// Music
+const music = document.getElementById('bgMusic');
+const savedTime = localStorage.getItem('musicTime');
+
+if(savedTime){
+    music.currentTime = parseFloat(savedTime);
+}
+
+music.play().catch(() => {});
+
+setInterval(() => {
+    localStorage.setItem('musicTime', music.currentTime);
+}, 1000);
+
+// Commands
 const commands = {
-  help: `Available commands:
+    help: `Available commands:
 
 unlock
-
 status
-
 future
-
 clear
 
-Hint: Complete the mission.`,
+Hint: Type unlock to continue.`,
 
-  unlock: `Repository found.
+    unlock: `Repository found.
 
 Decrypting memory fragments...
 
@@ -82,82 +107,59 @@ Memory #01 unlocked.
 
 Redirecting to Memory Repository...`,
 
-  status: `Relationship Status
+    status: `Relationship Status
 
 Distance: Too much
-
 Love: Infinite
-
 Missing You: 999999999%`,
 
-  future: `Loading future branch...
+    future: `Loading future branch...
 
 Creating memories...
 
-Reunion.exe available soon.`,
-
-  clear: ''
+Reunion.exe available soon.`
 };
+
+input.focus();
+
+document.body.addEventListener('click', () => {
+    input.focus();
+});
 
 input.addEventListener('keydown', function(e){
 
-  if(e.key === 'Enter'){
+    if(e.key === 'Enter'){
 
-    const cmd = input.value.trim().toLowerCase();
+        const cmd = input.value.trim().toLowerCase();
 
-    const line = document.createElement('div');
+        if(cmd === ''){
+            return;
+        }
 
-    line.className = 'line';
+        output.innerHTML += `<div class="line"><span class="prompt">$</span> ${cmd}</div>`;
 
-    line.innerHTML = `<span class="prompt">$</span> ${cmd}`;
+        if(cmd === 'clear'){
+            output.innerHTML = '';
+        }
+        else if(commands[cmd]){
+            output.innerHTML += `<div class="line">${commands[cmd].replace(/\n/g,'<br>')}</div>`;
 
-    output.appendChild(line);
+            if(cmd === 'unlock'){
+                setTimeout(() => {
+                    window.location.href = 'repository.html';
+                }, 2000);
+            }
+        }
+        else{
+            output.innerHTML += `<div class="line">Command not found. Type help.</div>`;
+        }
 
-    const response = document.createElement('div');
-
-    response.className = 'line';
-
-    response.textContent = commands[cmd] || 'Command not found. Type help';
-
-   if(cmd === 'unlock'){
-  setTimeout(() => {
-    window.location.href = 'repository.html';
-  }, 2000);
-}
-    if(cmd === 'clear'){
-      output.innerHTML = '';
+        input.value = '';
+        window.scrollTo(0, document.body.scrollHeight);
     }
 
-    input.value = '';
-
-    window.scrollTo(0, document.body.scrollHeight);
-
-  }
-
 });
 </script>
-<audio id="bgMusic" loop>
-    <source src="../assets/music/our-song.mp3" type="audio/mpeg">
-</audio>
 
-<script>
-const music = document.getElementById('bgMusic');
-
-// Restore saved playback position
-const savedTime = localStorage.getItem('musicTime');
-if (savedTime) {
-    music.currentTime = parseFloat(savedTime);
-}
-
-// Try to autoplay
-music.play().catch(() => {
-    // Browser blocks autoplay until user interacts
-});
-
-// Save current position continuously
-setInterval(() => {
-    localStorage.setItem('musicTime', music.currentTime);
-}, 1000);
-</script>
 </body>
 </html>
