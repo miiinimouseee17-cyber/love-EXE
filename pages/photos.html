@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Encrypted photo vault</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    background:#050505;
+    color:#00fff7;
+    font-family:'Courier New', monospace;
+    padding:40px 20px;
+}
+
+.container{
+    max-width:900px;
+    margin:auto;
+}
+
+h1{
+    margin-bottom:10px;
+}
+
+.subtitle{
+    color:#888;
+    margin-bottom:40px;
+}
+
+.vault{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:20px;
+}
+
+.file{
+    background:#111;
+    border:1px solid #333;
+    border-radius:12px;
+    padding:30px 20px;
+    text-align:center;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.file:hover{
+    border-color:#00fff7;
+    box-shadow:0 0 20px rgba(0,255,247,.25);
+}
+
+.lock{
+    font-size:40px;
+    margin-bottom:15px;
+}
+
+.name{
+    color:#00fff7;
+}
+
+.viewer{
+    display:none;
+    margin-top:40px;
+    background:#111;
+    border:1px solid #333;
+    border-radius:12px;
+    padding:25px;
+}
+
+.viewer img{
+    width:100%;
+    border-radius:10px;
+    margin-bottom:15px;
+    filter:blur(18px);
+    transition:filter 1.5s ease;
+}
+
+input{
+    margin-top:20px;
+    width:100%;
+    padding:12px;
+    background:#050505;
+    border:1px solid #333;
+    color:#00fff7;
+}
+
+button{
+    margin-top:20px;
+    padding:12px 25px;
+    background:#00fff7;
+    color:#000;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+    font-weight:bold;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>Encrypted photo vault</h1>
+
+<div class="subtitle">Access restricted. Password required.</div>
+
+<div class="vault">
+
+<div class="file" onclick="openVault()">
+<div class="lock">🔒</div>
+<div class="name">memory_01.enc</div>
+</div>
+
+<div class="file" onclick="openVault()">
+<div class="lock">🔒</div>
+<div class="name">memory_02.enc</div>
+</div>
+
+<div class="file" onclick="openVault()">
+<div class="lock">🔒</div>
+<div class="name">memory_03.enc</div>
+</div>
+
+<div class="file" onclick="openVault()">
+<div class="lock">🔒</div>
+<div class="name">memory_04.enc</div>
+</div>
+
+</div>
+
+<div class="viewer" id="viewer">
+
+<h2>Enter decryption password</h2>
+
+<img id="photo" src="../assets/images/photo1.jpg" alt="Our Memory">
+
+<input type="password" id="password" placeholder="Password...">
+
+<button onclick="decrypt()">
+DECRYPT
+</button>
+
+<p id="message" style="margin-top:20px;color:#888;"></p>
+
+<button id="nextMemory" style="display:none;" onclick="nextPhoto()">
+
+NEXT MEMORY →
+
+</button>
+
+</div>
+
+</div>
+
+<script>
+const photos = [
+    '../assets/images/photo1.jpg',
+    '../assets/images/photo2.jpg',
+    '../assets/images/photo3.jpg',
+    '../assets/images/photo4.jpg'
+];
+
+let currentPhoto = 0;
+
+function openVault(){
+    document.getElementById('viewer').style.display='block';
+}
+
+function decrypt(){
+
+    const password = document.getElementById('password').value;
+    const photo = document.getElementById('photo');
+
+    if(password === 'forever'){
+
+        photo.style.filter = 'blur(0px)';
+
+        document.getElementById('message').textContent =
+        'Memory decrypted successfully.';
+
+        document.getElementById('nextMemory').style.display = 'inline-block';
+
+    }else{
+
+        document.getElementById('message').textContent =
+        'Access denied. The password is something distance cannot change.';
+
+    }
+
+}
+
+function nextPhoto(){
+
+    currentPhoto++;
+
+    if(currentPhoto < photos.length){
+
+        const photo = document.getElementById('photo');
+
+        photo.style.filter = 'blur(18px)';
+
+        setTimeout(() => {
+            photo.src = photos[currentPhoto];
+        }, 300);
+
+        document.getElementById('password').value = '';
+
+        document.getElementById('message').textContent =
+        'Enter password for the next memory.';
+
+    }else{
+
+        window.location.href = 'letters.html';
+
+    }
+
+}
+</script>
+<audio id="bgMusic" loop>
+    <source src="../assets/music/our-song.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+const music = document.getElementById('bgMusic');
+
+// Restore saved playback position
+const savedTime = localStorage.getItem('musicTime');
+if (savedTime) {
+    music.currentTime = parseFloat(savedTime);
+}
+
+// Try to autoplay
+music.play().catch(() => {
+    // Browser blocks autoplay until user interacts
+});
+
+// Save current position continuously
+setInterval(() => {
+    localStorage.setItem('musicTime', music.currentTime);
+}, 1000);
+</script>
+</body>
+</html>

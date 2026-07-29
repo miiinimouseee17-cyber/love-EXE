@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LOVE.EXE</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="boot-screen">
+
+        <h1>LOVE.EXE</h1>
+
+        <p class="version">Version 1.0.0</p>
+
+        <div class="loading-text">
+
+            <p>Initializing...</p>
+
+            <p>Loading Memory Engine...</p>
+
+            <p>Scanning Developer...</p>
+
+            <p>Developer Found ❤️</p>
+
+        </div>
+
+        <button id="enterBtn">
+            PRESS ENTER
+        </button>
+
+    </div>
+
+    <script src="script.js"></script>
+<audio id="bgMusic" loop>
+    <source src="assets/music/our-song.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+const music = document.getElementById('bgMusic');
+
+const savedTime = localStorage.getItem('musicTime');
+if (savedTime) {
+    music.currentTime = parseFloat(savedTime);
+}
+
+music.play().catch(() => {});
+
+setInterval(() => {
+    localStorage.setItem('musicTime', music.currentTime);
+}, 1000);
+</script>
+
+
+</body>
+
+</html>

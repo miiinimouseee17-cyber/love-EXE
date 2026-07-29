@@ -1,0 +1,144 @@
+/* ===== GOOGLE FONT ===== */
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+
+/* ===== RESET ===== */
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+/* ===== BODY ===== */
+body{
+
+    background:#050505;
+    color:#00fff7;
+
+    font-family:'Share Tech Mono', monospace;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    height:100vh;
+
+    overflow:hidden;
+}
+
+/* ===== BOOT SCREEN ===== */
+
+.boot-screen{
+
+    width:700px;
+
+    text-align:center;
+
+}
+
+/* ===== TITLE ===== */
+
+h1{
+
+    font-size:70px;
+
+    letter-spacing:8px;
+
+    color:#00fff7;
+
+    text-shadow:
+    0 0 8px #00fff7,
+    0 0 20px #00fff7,
+    0 0 35px #00fff7;
+
+    margin-bottom:15px;
+
+}
+
+/* ===== VERSION ===== */
+
+.version{
+
+    color:#888;
+
+    margin-bottom:40px;
+
+}
+
+/* ===== LOADING TEXT ===== */
+
+.loading-text p{
+
+    margin:15px;
+
+    font-size:22px;
+
+    opacity:.85;
+
+}
+
+/* ===== BUTTON ===== */
+
+button{
+
+    margin-top:45px;
+
+    padding:15px 45px;
+
+    font-size:20px;
+
+    background:transparent;
+
+    border:2px solid #00fff7;
+
+    color:#00fff7;
+
+    cursor:pointer;
+
+    transition:.4s;
+
+    font-family:'Share Tech Mono', monospace;
+
+}
+
+button:hover{
+
+    background:#00fff7;
+
+    color:black;
+
+    box-shadow:
+    0 0 20px #00fff7,
+    0 0 40px #00fff7;
+
+}body::before{
+    content:'';
+    position:absolute;
+    width:200%;
+    height:200%;
+    background:
+    radial-gradient(circle at 20% 20%, rgba(0,255,247,0.08), transparent 20%),
+    radial-gradient(circle at 80% 40%, rgba(128,0,255,0.08), transparent 20%),
+    radial-gradient(circle at 50% 80%, rgba(0,255,247,0.06), transparent 20%);
+    animation: drift 20s linear infinite;
+}
+
+@keyframes drift{
+    from{
+        transform:translate(-10%, -10%);
+    }
+    to{
+        transform:translate(10%, 10%);
+    }
+}.loading-text p::after{
+    content:'_';
+    animation:blink .8s infinite;
+}
+
+@keyframes blink{
+    0%,50%{
+        opacity:1;
+    }
+    51%,100%{
+        opacity:0;
+    }
+}

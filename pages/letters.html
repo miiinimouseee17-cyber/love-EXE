@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Secret letters</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    background:#050505;
+    color:#f5f5f5;
+    font-family:'Georgia', serif;
+    padding:40px 20px;
+}
+
+.container{
+    max-width:900px;
+    margin:auto;
+}
+
+h1{
+    text-align:center;
+    margin-bottom:10px;
+    color:#00fff7;
+}
+
+.subtitle{
+    text-align:center;
+    color:#888;
+    margin-bottom:40px;
+}
+
+.grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:25px;
+}
+
+.envelope{
+    background:#111;
+    border:1px solid #333;
+    border-radius:16px;
+    padding:30px 20px;
+    text-align:center;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.envelope:hover{
+    border-color:#00fff7;
+    transform:translateY(-5px);
+}
+
+.icon{
+    font-size:45px;
+    margin-bottom:15px;
+}
+
+.title{
+    font-size:20px;
+    margin-bottom:10px;
+    color:#00fff7;
+}
+
+.letter{
+    display:none;
+    margin-top:40px;
+    background:#fffdf8;
+    color:#222;
+    padding:30px;
+    border-radius:16px;
+    line-height:1.9;
+    font-size:18px;
+}
+
+.letter h2{
+    margin-bottom:20px;
+    color:#111;
+}
+
+.next{
+    text-align:center;
+    margin-top:30px;
+}
+
+button{
+    padding:12px 28px;
+    background:#00fff7;
+    color:#000;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+    font-weight:bold;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>Secret letters</h1>
+
+<div class="subtitle">Open only when your heart tells you to.</div>
+
+<div class="grid">
+
+<div class="envelope" onclick="openLetter(1)">
+
+<div class="icon">💌</div>
+
+<div class="title">Open when you miss me</div>
+
+</div>
+
+<div class="envelope" onclick="openLetter(2)">
+
+<div class="icon">📮</div>
+
+<div class="title">Open when coding gets hard</div>
+
+</div>
+
+<div class="envelope" onclick="openLetter(3)">
+
+<div class="icon">❤️</div>
+
+<div class="title">Open before sleeping</div>
+
+</div>
+
+<div class="envelope" onclick="openLetter(4)">
+
+<div class="icon">🌙</div>
+
+<div class="title">Open when you feel lonely</div>
+
+</div>
+
+</div>
+
+<div class="letter" id="letterBox">
+
+<h2 id="letterTitle"></h2>
+
+<p id="letterText"></p>
+
+<div class="next">
+
+<button onclick="window.location.href='final.html'">
+
+FINAL MESSAGE →
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+<script>
+const letters = {
+
+1:{
+
+title:'Open when you miss me',
+
+text:`I know distance is not easy.
+
+If you’re reading this, I’m probably missing you too.
+
+Maybe we’re in different states.
+
+Maybe we’re busy.
+
+Maybe we’re both pretending we’re okay.
+
+But I want you to remember something.
+
+You have never been alone in this relationship.
+
+Every day, in some corner of my mind, I’m choosing you.
+
+And I’ll keep choosing you.`
+
+},
+
+2:{
+
+title:'Open when coding gets hard',
+
+text:`Take a deep breath.
+
+Drink some water.
+
+Stretch.
+
+Then come back and destroy that bug.
+
+You’re one of the smartest people I know, and I hope you never forget that.
+
+Also… if the code still doesn’t work,
+
+I’m officially blaming the compiler.`
+
+},
+
+3:{
+
+title:'Open before sleeping',
+
+text:`I wish I could say goodnight in person.
+
+I wish I could steal your blanket.
+
+I wish distance had a logout button.
+
+Until then,
+
+sleep well,
+
+dream big,
+
+and know that someone loves you very, very much.`
+
+},
+
+4:{
+
+title:'Open when you feel lonely',
+
+text:`Read this carefully.
+
+You are loved.
+
+You are appreciated.
+
+You are someone’s favorite person.
+
+No matter how far you go,
+
+no matter which country you’re in,
+
+my heart will always know the way back to you.`
+
+}
+
+};
+
+function openLetter(id){
+
+    document.getElementById('letterBox').style.display='block';
+
+    document.getElementById('letterTitle').textContent = letters[id].title;
+
+    document.getElementById('letterText').textContent = letters[id].text;
+
+    window.scrollTo({
+        top:document.body.scrollHeight,
+        behavior:'smooth'
+    });
+
+}
+</script>
+<audio id="bgMusic" loop>
+    <source src="../assets/music/our-song.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+const music = document.getElementById('bgMusic');
+
+// Restore saved playback position
+const savedTime = localStorage.getItem('musicTime');
+if (savedTime) {
+    music.currentTime = parseFloat(savedTime);
+}
+
+// Try to autoplay
+music.play().catch(() => {
+    // Browser blocks autoplay until user interacts
+});
+
+// Save current position continuously
+setInterval(() => {
+    localStorage.setItem('musicTime', music.currentTime);
+}, 1000);
+</script>
+</body>
+</html>

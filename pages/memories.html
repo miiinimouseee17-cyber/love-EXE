@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Commit History</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    background:#0d1117;
+    color:#e6edf3;
+    font-family:Arial, Helvetica, sans-serif;
+    padding:40px 20px;
+}
+
+.container{
+    max-width:900px;
+    margin:auto;
+}
+
+.header{
+    margin-bottom:40px;
+}
+
+h1{
+    color:#58a6ff;
+    margin-bottom:10px;
+}
+
+.subtitle{
+    color:#8b949e;
+}
+
+.timeline{
+    border-left:2px solid #30363d;
+    margin-left:20px;
+    padding-left:30px;
+}
+
+.commit{
+    position:relative;
+    margin-bottom:40px;
+}
+
+.commit::before{
+    content:'';
+    position:absolute;
+    left:-39px;
+    top:8px;
+    width:14px;
+    height:14px;
+    background:#58a6ff;
+    border-radius:50%;
+}
+
+.hash{
+    color:#58a6ff;
+    font-family:'Courier New', monospace;
+    font-size:14px;
+    margin-bottom:8px;
+}
+
+.message{
+    font-size:24px;
+    margin-bottom:10px;
+}
+
+.meta{
+    color:#8b949e;
+    line-height:1.6;
+}
+
+.note{
+    margin-top:12px;
+    color:#c9d1d9;
+    background:#161b22;
+    border:1px solid #30363d;
+    border-radius:10px;
+    padding:15px;
+}
+
+.next{
+    margin-top:40px;
+    text-align:center;
+}
+
+button{
+    padding:14px 30px;
+    background:#00fff7;
+    color:black;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+    font-weight:bold;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="header">
+
+<h1>Commit history</h1>
+
+<div class="subtitle">Recovered memory archive</div>
+
+</div>
+
+<div class="timeline">
+
+<div class="commit">
+
+<div class="hash">commit a1f9c2d</div>
+
+<div class="message">Initial connection established</div>
+
+<div class="meta">
+
+Author: You ❤️
+
+Date: The day we met
+
+</div>
+
+<div class="note">
+
+I didn’t know that this would become my favorite project.
+
+</div>
+
+</div>
+
+<div class="commit">
+
+<div class="hash">commit b7e4a91</div>
+
+<div class="message">Late-night conversations deployed</div>
+
+<div class="meta">
+
+Author: You ❤️
+
+Date: Our first long call
+
+</div>
+
+<div class="note">
+
+Sleep schedule deleted successfully.
+
+</div>
+
+</div>
+
+<div class="commit">
+
+<div class="hash">commit c8d7f44</div>
+
+<div class="message">Distance bug detected</div>
+
+<div class="meta">
+
+Author: You ❤️
+
+Date: The day college separated us
+
+</div>
+
+<div class="note">
+
+System warning: Missing you too much.
+
+</div>
+
+</div>
+
+<div class="commit">
+
+<div class="hash">commit d9a2e31</div>
+
+<div class="message">Love remained stable</div>
+
+<div class="meta">
+
+Author: billu❤️
+
+Date: Every single day since
+
+</div>
+
+<div class="note">
+
+Even across states, the connection never disconnected.
+
+</div>
+
+</div>
+
+</div>
+
+<div class="next">
+
+<button onclick="window.location.href='photos.html'">
+
+ACCESS PHOTO VAULT →
+
+</button>
+
+</div>
+
+</div>
+<audio id="bgMusic" loop>
+    <source src="../assets/music/our-song.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+const music = document.getElementById('bgMusic');
+
+// Restore saved playback position
+const savedTime = localStorage.getItem('musicTime');
+if (savedTime) {
+    music.currentTime = parseFloat(savedTime);
+}
+
+// Try to autoplay
+music.play().catch(() => {
+    // Browser blocks autoplay until user interacts
+});
+
+// Save current position continuously
+setInterval(() => {
+    localStorage.setItem('musicTime', music.currentTime);
+}, 1000);
+</script>
+</body>
+</html>

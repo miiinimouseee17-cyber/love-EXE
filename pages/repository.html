@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Memory Repository</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    background:#0d1117;
+    color:#e6edf3;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+.header{
+    background:#161b22;
+    padding:20px 40px;
+    border-bottom:1px solid #30363d;
+}
+
+.repo-title{
+    color:#58a6ff;
+    font-size:28px;
+    font-weight:bold;
+}
+
+.private{
+    display:inline-block;
+    margin-left:10px;
+    padding:3px 8px;
+    border:1px solid #30363d;
+    border-radius:20px;
+    font-size:12px;
+    color:#8b949e;
+}
+
+.container{
+    max-width:900px;
+    margin:40px auto;
+    padding:0 20px;
+}
+
+.progress-box{
+    background:#161b22;
+    border:1px solid #30363d;
+    border-radius:12px;
+    padding:20px;
+    margin-bottom:30px;
+}
+
+.progress-title{
+    margin-bottom:15px;
+    color:#8b949e;
+}
+
+.progress-bar{
+    width:100%;
+    height:14px;
+    background:#21262d;
+    border-radius:20px;
+    overflow:hidden;
+}
+
+.progress{
+    width:20%;
+    height:100%;
+    background:#00fff7;
+}
+
+.file-box{
+    background:#161b22;
+    border:1px solid #30363d;
+    border-radius:12px;
+    overflow:hidden;
+}
+
+.file{
+    padding:18px 20px;
+    border-bottom:1px solid #30363d;
+    cursor:pointer;
+    transition:.3s;
+    display:flex;
+    align-items:center;
+}
+
+.file:hover{
+    background:#1f2630;
+}
+
+.file:last-child{
+    border-bottom:none;
+}
+
+.icon{
+    margin-right:15px;
+    font-size:20px;
+}
+
+.folder{
+    color:#58a6ff;
+}
+
+.readme{
+    color:#8b949e;
+}
+
+.message{
+    margin-top:30px;
+    background:#161b22;
+    border:1px solid #30363d;
+    border-radius:12px;
+    padding:25px;
+    display:none;
+    line-height:1.8;
+}
+
+h2{
+    color:#58a6ff;
+    margin-bottom:15px;
+}
+
+.next-btn{
+    margin-top:25px;
+    padding:12px 25px;
+    background:#00fff7;
+    color:#000;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+    font-weight:bold;
+    display:none;
+}
+</style>
+</head>
+
+<body>
+
+<div class="header">
+
+    <span class="repo-title">love-exe / memory-repository</span>
+
+    <span class="private">Private</span>
+
+</div>
+
+<div class="container">
+
+<div class="progress-box">
+
+<div class="progress-title">Mission Progress</div>
+
+<div class="progress-bar">
+
+<div class="progress"></div>
+
+</div>
+
+</div>
+
+<div class="file-box">
+
+<div class="file" onclick="openReadme()">
+
+<span class="icon readme">📄</span>
+
+README.md
+
+</div>
+
+<div class="file">
+
+<span class="icon folder">📁</span>
+
+memories/
+
+</div>
+
+<div class="file">
+
+<span class="icon folder">📁</span>
+
+photos/
+
+</div>
+
+<div class="file">
+
+<span class="icon folder">📁</span>
+
+letters/
+
+</div>
+
+<div class="file">
+
+<span class="icon readme">📄</span>
+
+future.txt
+
+</div>
+
+</div>
+
+<div class="message" id="message">
+
+<h2>README.md</h2>
+
+<p>
+
+Hello, Developer.
+
+</p>
+
+<p>
+
+If you found this repository, it means you successfully recovered the missing memory archive.
+
+</p>
+
+<p>
+
+This is not a normal project.
+
+</p>
+
+<p>
+
+Every folder contains a memory.
+
+Every file contains a feeling.
+
+Every commit contains a moment I never wanted to forget.
+
+</p>
+
+<p>
+
+You’re not here to debug code.
+
+You’re here to explore us.
+
+</p>
+
+<p>
+
+Start with the memories folder.
+
+The first commit is waiting for you.
+
+</p>
+
+<button class="next-btn" id="nextBtn" onclick="goToMemories()">
+
+OPEN MEMORIES →
+
+</button>
+
+</div>
+
+</div>
+
+<script>
+function openReadme(){
+
+    document.getElementById('message').style.display='block';
+
+    document.getElementById('nextBtn').style.display='inline-block';
+
+}
+
+function goToMemories(){
+
+    window.location.href='memories.html';
+
+}
+</script>
+<audio id="bgMusic" loop>
+    <source src="../assets/music/our-song.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+const music = document.getElementById('bgMusic');
+
+// Restore saved playback position
+const savedTime = localStorage.getItem('musicTime');
+if (savedTime) {
+    music.currentTime = parseFloat(savedTime);
+}
+
+// Try to autoplay
+music.play().catch(() => {
+    // Browser blocks autoplay until user interacts
+});
+
+// Save current position continuously
+setInterval(() => {
+    localStorage.setItem('musicTime', music.currentTime);
+}, 1000);
+</script>
+</body>
+</html>
