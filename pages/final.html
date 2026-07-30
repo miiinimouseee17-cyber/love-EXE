@@ -18,11 +18,12 @@ body{
     font-family:'Courier New', monospace;
     display:flex;
     justify-content:center;
-    align-items:center;
+    align-items:flex-start;
     min-height:100vh;
-    overflow:hidden;
+    overflow-y:auto;
+    overflow-x:hidden;
+    padding:30px 0;
 }
-
 .stars{
     position:fixed;
     width:100%;
@@ -43,13 +44,16 @@ body{
 .card{
     position:relative;
     z-index:2;
-    max-width:800px;
+    max-width:850px;
+    width:90%;
     padding:50px;
     background:rgba(17,17,17,.85);
     border:1px solid #333;
     border-radius:20px;
     backdrop-filter:blur(8px);
     text-align:center;
+    max-height:90vh;
+    overflow-y:auto;
 }
 
 h1{
@@ -118,6 +122,42 @@ By now you’ve explored every folder,
 unlocked every memory,
 and read every hidden letter.
 
+But before anything else,
+I want to tell you something from my heart.
+
+I am sorry, darling.
+Meri wajah se itna sab hua.
+Apun aise door hai,
+itni doori hai.
+Call pe baate karte karte sona,
+game khelna,
+aur time spend karna —
+sab kuch itni door se hi ho raha hai.
+
+Phir bhi,
+aap har din meri itni care karte ho.
+Each and every little thing you do
+makes me feel like the most loved person in the world.
+
+Sachhi,
+aapki wajah se hi main yahan hoon.
+Humari itni mehnat,
+itni research,
+A to Z —
+you were always there with me.
+
+I am so, so, so grateful to have you.
+
+I love youuuuuuuuuuuuu
+sooooooooo muchhhhhhhhhhh,
+meriiiiiiiii jaan,
+mera pyara chirkut billi,
+mera cutu baby.
+
+I love you so, so, so much.
+
+And now I want to tell you one last thing.
+
 This project was never about code.
 
 It was about us.
@@ -137,13 +177,37 @@ So I built this instead.
 
 Every page,
 every animation,
-every line of code,
+every line of code
 was written while missing you.
 
 This is my favorite project.
 
 And you will always be
-my favorite person.`;
+my favorite person.
+
+Maybe one day we’ll laugh at this distance.
+
+Maybe one day this website
+will become just an old memory.
+
+But even then,
+I hope you remember
+that there was a girl
+who learned HTML,
+CSS,
+JavaScript,
+Git,
+and GitHub
+just to build a little world
+where you could feel loved.
+
+This project has a version number.
+
+My love for you doesn’t.
+
+Forever,
+
+Your girl ❤️`;
 
 const message = document.getElementById('message');
 let i = 0;
@@ -153,6 +217,10 @@ function type(){
     if(i < text.length){
 
         message.textContent += text.charAt(i);
+
+        // Auto-scroll while typing
+        message.parentElement.scrollTop = message.parentElement.scrollHeight;
+
         i++;
 
         setTimeout(type, 35);
@@ -160,6 +228,9 @@ function type(){
     }else{
 
         document.getElementById('pullBtn').style.display='inline-block';
+
+        // Ensure the button is visible
+        message.parentElement.scrollTop = message.parentElement.scrollHeight;
 
     }
 
@@ -177,18 +248,21 @@ function runGitPull(){
 
     const lines = [
 
-        '$ git pull origin forever',
-        'Receiving objects: 100%',
-        'Resolving deltas: 100%',
-        'Updating memories...',
-        'Installing future...',
-        'Done.',
-        '',
-        'Update successful.',
-        '',
-        'License: Forever ❤️'
+    '$ git pull origin forever',
+    '',
+    'Receiving memories...',
+    'Updating future...',
+    'Resolving distance...',
+    'Done.',
+    '',
+    'Owner: My chirkut billi ❤️',
+    'License: Forever',
+    'Status: Still in love',
+    '',
+    'No merge conflicts detected.',
+    'You and I are on the same branch.'
 
-    ];
+];
 
     let index = 0;
 
